@@ -4,8 +4,13 @@ If I had more time:
 
 - Contribution guildlines
 - Issue templates
-- Tests
+- Unit Tests
+- E2E Tests
+- Accessibility tests
+- Data Storage and/or state saving
 - CI workflows
+  - Test running on PRs
+  - Security scanning
 - Editorconfig
 - Linting
 - Pulling in USWDS
