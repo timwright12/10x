@@ -1,0 +1,17 @@
+{
+  "name": "10x Preview environment",
+  "postCreateCommand": "cd hhbuilder && npx http-server",
+  "forwardPorts": [
+    8080
+  ],
+  "portsAttributes": {
+    "8080": {
+      "label": "hhbuilder"
+    }
+  },
+  "hostRequirements": {
+    "cpus": 16,
+    "memory": "32gb",
+    "storage": "128gb"
+  }
+}
