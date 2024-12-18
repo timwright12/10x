@@ -2,12 +2,11 @@
   "name": "10x",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "http-server hhbuilder"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Tim Wright",
+  "license": "MIT",
   "dependencies": {
     "http-server": "^14.1.1"
   }
