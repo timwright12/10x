@@ -1,6 +1,6 @@
 {
   "name": "10x Preview environment",
-  "postCreateCommand": "cd hhbuilder && npx http-server",
+  "postCreateCommand": "npm install && npm start",
   "forwardPorts": [
     8080
   ],
