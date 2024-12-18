@@ -1,7 +1,7 @@
 {
   "name": "10x",
   "version": "1.0.0",
-  "description": "[HH Builder Updates](https://github.com/adhocteam/homework_answers/commit/75128505ad047f99890cf0b3fbae8db509dc7250)",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "http-server hhbuilder"
