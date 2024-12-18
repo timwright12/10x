@@ -5,31 +5,50 @@ document.addEventListener('DOMContentLoaded', function() {
     // Create a in-memory data structure to model the household.
     var household = [];
 
+    // Storing variables
     var btnAdd = document.querySelector('button.add');
     var form = document.querySelector('form');
     var hh = document.querySelector('ol.household');
     var debug = document.querySelector('.debug');
+    var ageEl = form.querySelector('#age');
+    var relEl = form.querySelector('#rel');
+    var smokerEl = form.querySelector('#smoker');
+
+    // Prevent required fields from stopping submission since we're validating manually
+    form.setAttribute('novalidate', 'true');
 
     // So an empty OL doesn't report, remove this when there are items
     hh.setAttribute('role', 'presentation');
 
-     // let screen readers know this area is updating
+    // Let screen readers know this area is updating
     hh.setAttribute('aria-atomic', 'true');
     debug.setAttribute('aria-atomic', 'true');
 
-     // be nice about it
+     // Be nice about it
     hh.setAttribute('aria-live', 'polite');
     debug.setAttribute('aria-live', 'polite');
 
+    // Describe what types of changes have occurred
+    hh.setAttribute('aria-relevant', 'additions removals');
+    debug.setAttribute('aria-relevant', 'text');
+
+    // Set up the age element
+    ageEl.setAttribute('type', 'number');
+    ageEl.setAttribute('min', '1');
+    ageEl.setAttribute('required', 'required');
+    
+    // Set rel to announce as required
+    relEl.setAttribute('required', 'required');
+    
     // Add person to household.
     btnAdd.addEventListener('click', function(e) {
         e.preventDefault();
 
+        // Storing some variables
         var form = this.parentNode.parentNode;
-        var ageEl = form.querySelector('[name=age]');
         var age = parseInt(+ageEl.value, 10);
-        var relEl = form.querySelector('[name=rel]');
-        var smokerEl = form.querySelector('[name=smoker]');
+        var relationship;
+        var smoker;
 
         if (isNaN(age) || age < 1) {
             renderError(ageEl, 'This Field is Required.');
@@ -38,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
           clearError(ageEl);
         }
 
-        var relationship = relEl.value;
+        relationship = relEl.value;
         if (relationship === '') {
             renderError(relEl, 'This Field is Required.');
             return;
@@ -46,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
           clearError(relEl);
         }
 
-        var smoker = form.querySelector('[name=smoker]').checked;
+        smoker = form.querySelector('#smoker').checked;
         household.push({
             age: age,
             relationship: relationship,
@@ -58,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         relEl.value = '';
         smokerEl.checked = false;
 
-        // Set focus back to the first input
+        // Set focus back to the first input (generic in case it changes)
         form.querySelector('input').focus();
 
         render();
@@ -90,11 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var element = el;
       var id = element.getAttribute('id');
+      var template;
 
       // Clear the previous error
       clearError(el);
 
-      var template = document.createElement('div');
+      template = document.createElement('div');
       template.setAttribute('id', 'error-for-' + id);
       template.innerHTML = msg;
       template.style.color = 'red';
@@ -135,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Render the form from the model + the template.
     function render() {
+
         // Clear the existing list of people.
         while (hh.firstChild) {
             hh.removeChild(hh.firstChild);
@@ -150,8 +171,10 @@ document.addEventListener('DOMContentLoaded', function() {
         household.forEach(function(person, index) {
             var count = index + 1;
             var dom = document.createElement('li');
+
             dom.className = 'person';
             dom.id = 'hh-' + index;
+
             var template =
                 '<strong>Age:</strong> ' + person.age + '<br>' +
                 '<strong>Relationship:</strong> ' + person.relationship + '<br>' +
