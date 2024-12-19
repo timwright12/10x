@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // @TODO Prevent required fields from stopping submission since we're validating manually
     // @TODO sync with error API
-    // @TODO form.setAttribute('novalidate', 'true');
+    form.setAttribute('novalidate', 'true');
 
     // So an empty OL doesn't report, remove this when there are items
     hh.setAttribute('role', 'presentation');
